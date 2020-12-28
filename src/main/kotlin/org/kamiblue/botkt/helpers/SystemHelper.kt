@@ -1,7 +1,7 @@
 package org.kamiblue.botkt.helpers
 
 import org.kamiblue.botkt.helpers.ShellHelper.bash
-//import org.kamiblue.commons.utils.MathUtils
+import org.kamiblue.commons.utils.MathUtils
 import java.io.File
 
 object SystemHelper {
@@ -43,11 +43,12 @@ object SystemHelper {
     fun getCpuUsage(core: Int): Double? {
         val freqInKHz: Double
         try {
-            freqInKHz = File("/sys/devices/system/cpu/cpu$core/cpufreq/scaling_cur_freq").readText().toDouble()
+            freqInKHz = File("/sys/devices/system/cpu/cpu$core/cpufreq/scaling_cur_freq")
+                .readText().toDouble()
         } catch (ignored: NumberFormatException) {
             return null
         }
 
-        return freqInKHz//MathUtils.round(freqInKHz / 1000000, 2)
+        return MathUtils.round(freqInKHz / 1000000, 2)
     }
 }
